@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Company_Site.Infrastructure.Services
+namespace Company_Site.Application.Services
 {
     public class UserService : IUserService
     {
@@ -61,7 +61,7 @@ namespace Company_Site.Infrastructure.Services
 
         public async Task<ResultDto> DeleteUserAsync(UserDeleteDto dto)
         {
-            var user = await _userManager.FindByIdAsync(dto.Id);
+            var user = await _userManager.FindByIdAsync(dto.Id.ToString());
             if (user == null) 
             {
                 return new ResultDto(false, "کاربر یافت نشد");
@@ -78,7 +78,7 @@ namespace Company_Site.Infrastructure.Services
 
         public async Task<ResultDto> EditUserAsync(UserEditDto dto)
         {
-            var user = await _userManager.FindByIdAsync(dto.Id);
+            var user = await _userManager.FindByIdAsync(dto.Id.ToString());
             if (user == null) 
             {
                 return new ResultDto(false, "کاربر یافت نشد");
@@ -98,9 +98,9 @@ namespace Company_Site.Infrastructure.Services
             return new ResultDto(false, string.Join("\n", result.Errors.Select(e => e.Description)));
         }
 
-        public async Task<AddUserRole> GetAddUserRole(string id)
+        public async Task<AddUserRole> GetAddUserRole(Guid id)
         {
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(id.ToString());
             if (user == null)
             {
                 return null;
@@ -114,7 +114,7 @@ namespace Company_Site.Infrastructure.Services
                 })).ToList();
             var dto = new AddUserRole
             {
-                Id = id,
+                Id = id.ToString(),
                 Roles = roles,
                 Email = user.Email,
                 FullName = $"{user.FirstName} {user.LastName}"
@@ -139,16 +139,16 @@ namespace Company_Site.Infrastructure.Services
             return users;
         }
 
-        public async Task<IEnumerable<string>> GetAllUserRoleAsync(string id)
+        public async Task<IEnumerable<string>> GetAllUserRoleAsync(Guid id)
         {
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(id.ToString());
             var result = await _userManager.GetRolesAsync(user);
             return result;
         }
 
-        public async Task<UserDeleteDto> GetDeleteUserAsync(string id)
+        public async Task<UserDeleteDto> GetDeleteUserAsync(Guid id)
         {
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(id.ToString());
             UserDeleteDto userDelete = new UserDeleteDto()
             {
                 Email = user.Email,
@@ -160,9 +160,9 @@ namespace Company_Site.Infrastructure.Services
             return userDelete;
         }
 
-        public async Task<UserEditDto> GetEditUserAsync(string id)
+        public async Task<UserEditDto> GetEditUserAsync(Guid id)
         {
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(id.ToString());
             if (user == null) 
             {
                 return null;

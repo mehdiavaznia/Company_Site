@@ -9,6 +9,6 @@ namespace Company_Site.Application.DTOs.Roles
     public class AddNewRoleDto
     {
         public string Name { get; set; }
-        public string Description { get; set; }
+        public string PersianName { get; set; }
     }
 }

@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Company_site.Domain.Entities
 {
-    public class Role:IdentityRole
+    public class Role:IdentityRole<Guid>
     {
-        public string Description { get; set; }
+        public string PersianName { get; set; }
     }
 }

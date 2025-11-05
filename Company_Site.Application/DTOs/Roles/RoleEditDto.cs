@@ -8,8 +8,8 @@ namespace Company_Site.Application.DTOs.Roles
 {
     public class RoleEditDto
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
+        public string PersianName { get; set; }
     }
 }

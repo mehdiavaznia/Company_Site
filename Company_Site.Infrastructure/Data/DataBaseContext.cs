@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Company_Site.Infrastructure.Data
 {
-    public class DataBaseContext : IdentityDbContext<User,Role,string>
+    public class DataBaseContext : IdentityDbContext<User,Role,Guid>
     {
         public DataBaseContext(DbContextOptions<DataBaseContext> options) : base(options)
         {

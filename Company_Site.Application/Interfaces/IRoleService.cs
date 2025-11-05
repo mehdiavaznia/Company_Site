@@ -14,8 +14,8 @@ namespace Company_Site.Application.Interfaces
         Task<ResultDto> CreateRoleAsync(AddNewRoleDto dto);
         Task<ResultDto> EditRoleAsync(RoleEditDto dto);
         Task<IEnumerable<UserDto>> UserInRole(string name);
-        Task<RoleEditDto> GetEditRoleAsync(string id);
+        Task<RoleEditDto> GetEditRoleAsync(Guid id);
         Task<ResultDto> DeleteRoleAsync(RoleDeleteDto dto);
-        Task<RoleDeleteDto> GetDeleteRoleAsync(string id);
+        Task<RoleDeleteDto> GetDeleteRoleAsync(Guid id);
     }
 }

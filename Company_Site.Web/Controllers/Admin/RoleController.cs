@@ -2,7 +2,7 @@
 using Company_Site.Application.DTOs;
 using Company_Site.Application.DTOs.Roles;
 using Company_Site.Application.Interfaces;
-using Company_Site.Infrastructure.Services;
+using Company_Site.Application.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
@@ -44,7 +44,7 @@ namespace Company_Site.Web.Controllers.Admin
             }
             return RedirectToAction("Index", "Role");
         }
-        public async Task<IActionResult> Edit(string Id) 
+        public async Task<IActionResult> Edit(Guid Id) 
         {
             var role = await _roleService.GetEditRoleAsync(Id);
             if (role == null)
@@ -69,7 +69,7 @@ namespace Company_Site.Web.Controllers.Admin
             }
             return RedirectToAction("Index");
         }
-        public async Task<IActionResult> Delete(string Id) 
+        public async Task<IActionResult> Delete(Guid Id) 
         {
             var roleDelete = await _roleService.GetDeleteRoleAsync(Id);
             if (roleDelete == null)

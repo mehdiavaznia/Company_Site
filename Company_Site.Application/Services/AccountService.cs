@@ -2,7 +2,7 @@
 using Company_Site.Application.DTOs;
 using Company_Site.Application.Interfaces;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Identity.Client;
+//using Microsoft.Identity.Client;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Company_Site.Infrastructure.Services
+namespace Company_Site.Application.Services
 {
     public class AccountService : IAccountService
     {

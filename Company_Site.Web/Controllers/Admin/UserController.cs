@@ -46,7 +46,7 @@ namespace Company_Site.Web.Controllers.Admin
 
            
         }
-        public async Task<IActionResult>Edit(string Id) 
+        public async Task<IActionResult>Edit(Guid Id) 
         {
             var userEdit = await _userService.GetEditUserAsync(Id);
             if (userEdit == null) 
@@ -72,7 +72,7 @@ namespace Company_Site.Web.Controllers.Admin
             return RedirectToAction("Index");
 
         }
-        public async Task<IActionResult> Delete(string id) 
+        public async Task<IActionResult> Delete(Guid id) 
         {
             var userDelete = await _userService.GetDeleteUserAsync(id);
             if (userDelete == null) 
@@ -94,7 +94,7 @@ namespace Company_Site.Web.Controllers.Admin
             return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> AddUserRole(string Id) 
+        public async Task<IActionResult> AddUserRole(Guid Id) 
         {
             var user = await _userService.GetAddUserRole(Id);
             if (user == null) 
@@ -112,7 +112,7 @@ namespace Company_Site.Web.Controllers.Admin
 
         }
 
-        public async Task<IActionResult> UserRoles(string Id) 
+        public async Task<IActionResult> UserRoles(Guid Id) 
         {
             var result = await _userService.GetAllUserRoleAsync(Id);
             return View(result);

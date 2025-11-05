@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Company_Site.Infrastructure.Services
+namespace Company_Site.Application.Services
 {
     public class RoleService : IRoleService
     {
@@ -27,7 +27,7 @@ namespace Company_Site.Infrastructure.Services
         {
             Role role = new Role()
             {
-                Description = dto.Description,
+                PersianName = dto.PersianName,
                 Name = dto.Name,
             };
 
@@ -58,15 +58,15 @@ namespace Company_Site.Infrastructure.Services
 
         public async Task<ResultDto> EditRoleAsync(RoleEditDto dto)
         {
-            var role = await _roleManager.FindByIdAsync(dto.Id);
+            var role = await _roleManager.FindByIdAsync(dto.Id.ToString());
             if (role == null) 
             {
                 return new ResultDto(false, "نقش پیدا نشد");
             }
 
             role.Name = dto.Name;
-            role.Id = dto.Id;
-            role.Description = dto.Description;
+            //role.Id = dto.Id;
+            role.PersianName = dto.PersianName;
 
             var result = await _roleManager.UpdateAsync(role);
             if (result.Succeeded) 
@@ -76,9 +76,9 @@ namespace Company_Site.Infrastructure.Services
             return new ResultDto(false, string.Join("\n", result.Errors.Select(e => e.Description)));
         }
 
-        public async Task<RoleDeleteDto> GetDeleteRoleAsync(string id)
+        public async Task<RoleDeleteDto> GetDeleteRoleAsync(Guid id)
         {
-            var role = await _roleManager.FindByIdAsync(id);
+            var role = await _roleManager.FindByIdAsync(id.ToString());
             if (role == null) 
             {
                 return null;
@@ -86,16 +86,16 @@ namespace Company_Site.Infrastructure.Services
 
             RoleDeleteDto roleDelete = new RoleDeleteDto()
             {
-                Id = role.Id,
+                Id = role.ToString(),
                 Name = role.Name,
-                Description = role.Description
+                PersianName = role.PersianName
             };
             return roleDelete;
         }
 
-        public async Task<RoleEditDto> GetEditRoleAsync(string id)
+        public async Task<RoleEditDto> GetEditRoleAsync(Guid id)
         {
-            var role = await _roleManager.FindByIdAsync(id);
+            var role = await _roleManager.FindByIdAsync(id.ToString());
             if (role == null) 
             {
                 return null;
@@ -103,9 +103,9 @@ namespace Company_Site.Infrastructure.Services
 
             RoleEditDto roleEdit = new RoleEditDto()
             {
-                Id = role.Id,
+                //Id = role.ToString(),
                 Name = role.Name,
-                Description = role.Description
+                PersianName = role.PersianName
             };
             return roleEdit;
         }
@@ -116,8 +116,8 @@ namespace Company_Site.Infrastructure.Services
                 .Select(p =>
                 new RoleListDto
                 {
-                    Id = p.Id,
-                    Description = p.Description,
+                    Id = p.Id.ToString(),
+                    PersianName = p.PersianName,
                     Name = p.Name
                 })
                 .ToListAsync();

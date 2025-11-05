@@ -9,7 +9,7 @@ namespace Company_Site.Application.DTOs
 {
     public class AddUserRoleDto
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public string Role { get; set; }
         //public List<SelectListItem> Roles { get; set; }
     }

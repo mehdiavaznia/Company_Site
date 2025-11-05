@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Company_site.Domain.Entities
 {
-    public class User : IdentityUser
+    public class User : IdentityUser<Guid>
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
