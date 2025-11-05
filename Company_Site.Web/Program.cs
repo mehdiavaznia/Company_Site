@@ -1,7 +1,7 @@
 using Company_site.Domain.Entities;
 using Company_Site.Application.Interfaces;
 using Company_Site.Infrastructure.Data;
-using Company_Site.Infrastructure.Services;
+using Company_Site.Application.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

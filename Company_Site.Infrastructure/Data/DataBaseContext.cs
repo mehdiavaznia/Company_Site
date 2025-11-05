@@ -20,10 +20,9 @@ namespace Company_Site.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<IdentityUserLogin<string>>(p => p.HasKey(p => new {p.ProviderKey,p.LoginProvider }));
-
-            builder.Entity<IdentityUserRole<string>>(p => p.HasKey(p => new { p.UserId, p.RoleId }));
-            builder.Entity<IdentityUserToken<string>>(p => p.HasKey(p => new { p.UserId, p.LoginProvider }));
+            builder.Entity<IdentityUserLogin<Guid>>(p => p.HasKey(p => new {p.ProviderKey,p.LoginProvider}));
+            builder.Entity<IdentityUserRole<Guid>>(p => p.HasKey(p => new { p.UserId, p.RoleId }));
+            builder.Entity<IdentityUserToken<Guid>>(p => p.HasKey(p => new { p.UserId, p.LoginProvider }));
         }
     }
 }
