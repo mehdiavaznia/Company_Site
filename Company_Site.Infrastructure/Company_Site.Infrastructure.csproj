@@ -26,4 +26,8 @@
     <ProjectReference Include="..\Company_site.Domain\Company_site.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Mapping\" />
+  </ItemGroup>
+
 </Project>
