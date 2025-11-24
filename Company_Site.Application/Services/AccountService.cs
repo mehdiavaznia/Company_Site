@@ -68,6 +68,7 @@ namespace Company_Site.Application.Services
             }
             catch (Exception ex) 
             {
+                
                 return new ResultDto(false, $"خطا در خروج از حساب {ex.Message}");
             }
            
