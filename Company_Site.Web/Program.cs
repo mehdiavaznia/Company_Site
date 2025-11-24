@@ -4,6 +4,10 @@ using Company_Site.Infrastructure.Data;
 using Company_Site.Application.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
+using Serilog.Sinks.MSSqlServer;
+using Serilog.Sinks.MSSqlServer.Sinks.MSSqlServer.Options;
+using Company_Site.Web.Middleware;
 
 namespace Company_Site.Web
 {
@@ -11,6 +15,7 @@ namespace Company_Site.Web
     {
         public static void Main(string[] args)
         {
+            var connStr = "Server=DESKTOP-J95NUIR;Database=Company_Site;Trusted_Connection=True;TrustServerCertificate=True;";
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
@@ -19,10 +24,23 @@ namespace Company_Site.Web
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<DataBaseContext>
-                (p => p.UseSqlServer("Server=DESKTOP-J95NUIR;Database=Company_Site;Trusted_Connection=True;TrustServerCertificate=True;"));
+                (p => p.UseSqlServer(connStr));
             builder.Services.AddIdentity<User, Role>()
                .AddEntityFrameworkStores<DataBaseContext>()
                .AddDefaultTokenProviders();
+            
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.MSSqlServer(
+                connectionString: connStr,
+                sinkOptions: new Serilog.Sinks.MSSqlServer.MSSqlServerSinkOptions 
+                {
+                    TableName="LogEvents",
+                    AutoCreateSqlTable =true 
+                }
+                )
+                .MinimumLevel.Error()
+                .CreateLogger();
+                
 
             var app = builder.Build();
            
@@ -47,6 +65,8 @@ namespace Company_Site.Web
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.UseMiddleware<ExceptionLoggingMiddleware>();
 
             app.Run();
         }
